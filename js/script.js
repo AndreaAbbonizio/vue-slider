@@ -34,6 +34,9 @@ const { createApp } = Vue
         index : 0 ,
       }
     },
+    created() {
+        this.startAutoplay()
+    },
     methods: {
         nextSlide() {
             if(this.index >= this.slides.length - 1){
@@ -51,8 +54,18 @@ const { createApp } = Vue
         },
         changeThumb(activeImageIndex) {
             this.index = activeImageIndex ;
+        },
+        startAutoplay() {
+            this.autoplay = setInterval(() => {
+                this.index = (this.index + 1) % this.slides.length;
+                },3000
+            )
+        },
+        stopAutoplay() {
+            clearInterval(this.autoplay);
         }
-    }
+    },
+
   }).mount('#app')
 
 
